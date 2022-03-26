@@ -1,7 +1,18 @@
+import React from "react";
 import Button from "@material-tailwind/react/Button";
 import Icon from "@material-tailwind/react/Icon";
+import Image from "next/image";
 
-function Header() {
+import { firebaseAuth } from "../firebase/firebase";
+import { User, signOut } from "firebase/auth";
+
+interface IProps {
+  user: User;
+}
+
+function Header({ user }: IProps) {
+  const userPhotoUrl = user.photoURL || "";
+
   return (
     <div className="sticky top-0 z-50 flex items-center px-4 py-2 shadow-md bg-white">
       <Button
@@ -19,7 +30,11 @@ function Header() {
 
       <div className="mx-5 md:mx-20 flex flex-grow items-center px-5 py-2 bg-gray-100 text-gray-600 rounded-lg focus-within:text-gray-600 focus-within:shadow-md">
         <Icon name="search" size="3xl" color="darkgray" />
-        <input type="text" placeholder="Search" className="flex-grow px-5 bg-transparent outline-none" />
+        <input
+          type="text"
+          placeholder="Search"
+          className="flex-grow px-5 bg-transparent outline-none"
+        />
       </div>
 
       <Button
@@ -33,10 +48,13 @@ function Header() {
         <Icon name="apps" size="3xl" color="gray" />
       </Button>
 
-      <img
-        loading="lazy"
-        className="cursor-pointer w-12 h-12 rounded-full ml-2"
-        src="https://upload.wikimedia.org/wikipedia/commons/thumb/4/44/BMW.svg/2048px-BMW.svg.png"
+      <Image
+        className="cursor-pointer rounded-full ml-2"
+        src={userPhotoUrl}
+        alt="User Photo"
+        width="48"
+        height="48"
+        onClick={() => signOut(firebaseAuth)}
       />
     </div>
   );

@@ -1,0 +1,10 @@
+.wrapper {
+  height: 100%;
+  overflow-y: hidden;
+}
+
+.editor {
+  padding-left: 1rem;
+  padding-right: 1rem;
+  overflow-y: hidden;
+}
